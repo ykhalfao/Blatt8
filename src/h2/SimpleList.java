@@ -1,7 +1,6 @@
 package h2;
 public class SimpleList {
     Node head;
-    Node previous;
 
         public SimpleList (){
             this.head = new Node(Integer.MIN_VALUE);
@@ -24,20 +23,16 @@ public class SimpleList {
             Node current = head.next;
             while (current.next != null){
                 current = current.next;
-                return current;
             }
                 return current;
         }
 
         public void append(int newValue){
-            if(head.next == null){
-                head.next = new Node(newValue);
-            }
-            Node current = head.next;
-            while (current.next != null){
+            Node current = head;
+            while (current.next != null) {
                 current = current.next;
-                current.next = new Node(newValue);
             }
+                current.next = new Node(newValue);
         }
 
         public Node findFirst(int value) {
@@ -45,32 +40,37 @@ public class SimpleList {
                     while (current != null) {
                         if (current.value == value){
                             return current;
-                        } else
-                        previous = current;
+                        }
                         current = current.next;
                         }
             return null;
         }
 
         public boolean insertAfter(int preValue, int newValue){
-            if (findFirst(preValue) == null){
+            Node preInsert = findFirst(preValue);
+            if (preInsert == null){
                 return false;
             }
-            Node preInsert = findFirst(preValue);
-            Node nextPreInsert = preInsert.next;
             Node insert = new Node(newValue);
-            insert.next = nextPreInsert;
+            insert.next = preInsert.next;
+            preInsert.next = insert;
             return true;
         }
 
         public boolean delete(int value){
-            if (findFirst(value) == null){
-                return false;
+            Node current = head;
+
+            while(current.next != null){
+                if (current.next.value == value){
+                    Node toDelete = current.next;
+                    current.next = toDelete.next;
+                    toDelete.next = null;
+
+                    return true;
+                }
+                current = current.next;
             }
-            findFirst(value);
-            Node preDelete = findFirst(value);
-            this.previous.next = preDelete.next;
-            return true;
+            return false;
         }
 
 }
