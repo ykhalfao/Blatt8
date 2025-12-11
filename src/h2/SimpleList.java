@@ -58,6 +58,9 @@ public class SimpleList {
         }
 
         public boolean delete(int value){
+            if(value == Integer.MIN_VALUE){
+                return false;
+            }
             Node current = head;
 
             while(current.next != null){
