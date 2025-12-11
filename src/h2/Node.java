@@ -1,4 +1,4 @@
-package h2;     // ich glaube, man braucht die nächste Vorlesung hierfür.
+package h2;
 
 public class Node {
     Node next;
@@ -6,6 +6,6 @@ public class Node {
 
         public Node(int value){
             this.value = value;
-            this.next = 0;
+            this.next = null;
         }
 }
